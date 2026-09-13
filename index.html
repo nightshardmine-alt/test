@@ -375,31 +375,37 @@
   /* ---------- Dokumentai ---------- */
   .doc-grid{
     display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:22px;
+    grid-template-columns:1fr;
+    gap:26px;
   }
-  @media (max-width:680px){.doc-grid{grid-template-columns:1fr;}}
   .doc-card{
     border-radius:var(--radius-lg);
     background:var(--card);
     box-shadow:var(--shadow);
-    padding:24px 26px;
+    padding:24px 26px 28px;
   }
-  .doc-card h3{font-size:1.08rem; margin-bottom:6px;}
+  .doc-card h3{font-size:1.12rem; margin-bottom:6px;}
   .doc-card p{color:var(--ink-soft); font-size:0.93rem; margin:0 0 14px;}
   .doc-card .thumbs{display:flex; gap:8px; margin:0 0 16px;}
-  .doc-card .thumbs img{width:33%; height:72px; object-fit:cover; border-radius:8px;}
-  .btn-pill{
-    display:inline-block;
-    background:var(--amber);
-    color:#fff8ea;
-    font-weight:700;
-    font-size:0.88rem;
-    text-decoration:none;
-    padding:10px 20px;
-    border-radius:var(--radius-pill);
+  .doc-card .thumbs img{width:33%; height:96px; object-fit:cover; border-radius:8px;}
+  .pdf-frame{
+    width:100%;
+    height:560px;
+    border:1px solid var(--sage-deep);
+    border-radius:var(--radius-md);
+    background:#fff;
+    display:block;
   }
-  .btn-pill:hover{background:var(--amber-dark); color:#fff;}
+  @media (max-width:680px){
+    .pdf-frame{height:420px;}
+    .doc-card .thumbs img{height:76px;}
+  }
+  .doc-hint{
+    display:block;
+    font-size:0.82rem;
+    color:var(--ink-soft);
+    margin-top:10px;
+  }
 
   /* ---------- Ankstesni pranešimai (accordion) ---------- */
   details.year-entry{
@@ -692,7 +698,7 @@
   <section id="dokumentai" class="band band--sage">
     <div class="wrap">
       <h2>Žemėlapis ir vidaus tvarkos taisyklės</h2>
-      <p class="section-lede">Bendrijos teritorijos schema ir galiojančios vidaus tvarkos taisyklės atsisiuntimui.</p>
+      <p class="section-lede">Bendrijos teritorijos schema ir galiojančios vidaus tvarkos taisyklės — peržiūrai tiesiai svetainėje.</p>
 
       <div class="doc-grid">
         <div class="doc-card">
@@ -703,13 +709,14 @@
             <img src="https://sbsernai.weebly.com/uploads/3/7/1/5/3715819/scan0020.jpg" alt="Gatvių planas 2" loading="lazy">
             <img src="https://sbsernai.weebly.com/uploads/3/7/1/5/3715819/scan0022.jpg" alt="Gatvių planas 3" loading="lazy">
           </div>
-          <a class="btn-pill" href="https://sbsernai.weebly.com/uploads/3/7/1/5/3715819/teritorijos_schema.pdf">Atsisiųsti PDF</a>
+          <iframe class="pdf-frame" src="https://sbsernai.weebly.com/uploads/3/7/1/5/3715819/teritorijos_schema.pdf" title="Teritorijos schema PDF" loading="lazy"></iframe>
+          <span class="doc-hint">Jei PDF neatsidaro tiesiogiai, dokumentas taip pat pasiekiamas per naršyklės vaizdą aukščiau.</span>
         </div>
 
         <div class="doc-card">
           <h3>Vidaus tvarkos taisyklės</h3>
-          <p>Pilnas taisyklių dokumentas PDF formatu (9,3 MB).</p>
-          <a class="btn-pill" href="https://sbsernai.weebly.com/uploads/3/7/1/5/3715819/vidaus_tvarkos_taisykls.pdf">Atsisiųsti PDF</a>
+          <p>Pilnas taisyklių dokumentas (9,3 MB), peržiūrimas puslapis po puslapio.</p>
+          <iframe class="pdf-frame" src="https://sbsernai.weebly.com/uploads/3/7/1/5/3715819/vidaus_tvarkos_taisykls.pdf" title="Vidaus tvarkos taisyklės PDF" loading="lazy"></iframe>
         </div>
       </div>
     </div>
