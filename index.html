@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sodininkų bendrija „Šernai“</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#eeeee1;
+    --paper-deep:#e6e4d3;
+    --card:#f8f7ee;
+    --ink:#202b1e;
+    --ink-soft:#51604a;
+    --forest:#2f4a2c;
+    --forest-dark:#1e3320;
+    --moss:#6f8f5f;
+    --amber:#bd8a2e;
+    --amber-dark:#96691f;
+    --rust:#9c4430;
+    --line:#d1cbae;
+    --line-soft:#e0dcc6;
+    --radius:2px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;}
+  }
+
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Karla', sans-serif;
+    font-size:17px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  h1,h2,h3{
+    font-family:'Fraunces', serif;
+    color:var(--forest-dark);
+    line-height:1.15;
+    margin:0 0 0.5em 0;
+    font-weight:600;
+  }
+
+  a{color:var(--forest);}
+  a:hover{color:var(--amber-dark);}
+  a:focus-visible, button:focus-visible, summary:focus-visible{
+    outline:3px solid var(--amber);
+    outline-offset:2px;
+  }
+
+  .wrap{
+    max-width:920px;
+    margin:0 auto;
+    padding:0 24px;
+  }
+
+  /* ---------- Header ---------- */
+  header.site-header{
+    background:var(--forest);
+    color:#f2f0e1;
+    border-bottom:4px solid var(--amber);
+  }
+  .header-top{
+    max-width:920px;
+    margin:0 auto;
+    padding:18px 24px 14px;
+    display:flex;
+    align-items:center;
+    gap:14px;
+  }
+  .mark{flex:none;}
+  .header-title{
+    font-family:'Fraunces', serif;
+    font-size:1.5rem;
+    font-weight:600;
+    color:#f5f3e6;
+    margin:0;
+  }
+  .header-sub{
+    margin:2px 0 0;
+    font-size:0.88rem;
+    color:#c9d3bf;
+  }
+  nav.site-nav{
+    background:var(--forest-dark);
+  }
+  nav.site-nav ul{
+    max-width:920px;
+    margin:0 auto;
+    padding:0 24px;
+    list-style:none;
+    display:flex;
+    gap:2px;
+    overflow-x:auto;
+    scrollbar-width:thin;
+  }
+  nav.site-nav a{
+    display:block;
+    white-space:nowrap;
+    padding:12px 14px;
+    color:#dfe4d2;
+    text-decoration:none;
+    font-size:0.92rem;
+    font-weight:500;
+    border-bottom:3px solid transparent;
+  }
+  nav.site-nav a:hover{
+    color:#fff;
+    border-bottom-color:var(--amber);
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding:52px 0 40px;
+    border-bottom:1px solid var(--line);
+  }
+  .hero .eyebrow{
+    color:var(--ink-soft);
+    font-size:0.95rem;
+    margin:0 0 10px;
+  }
+  .hero h1{
+    font-size:2.1rem;
+    max-width:14ch;
+  }
+  .hero .lede{
+    max-width:56ch;
+    color:var(--ink-soft);
+    font-size:1.05rem;
+    margin-top:14px;
+  }
+
+  table.schedule{
+    margin-top:28px;
+    border-collapse:collapse;
+    width:100%;
+    background:var(--card);
+    border:1px solid var(--line);
+  }
+  table.schedule caption{
+    text-align:left;
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    color:var(--forest-dark);
+    margin-bottom:10px;
+    font-size:1.05rem;
+  }
+  table.schedule th, table.schedule td{
+    border:1px solid var(--line-soft);
+    padding:10px 8px;
+    text-align:center;
+    font-size:0.92rem;
+  }
+  table.schedule thead th{
+    background:var(--paper-deep);
+    color:var(--forest-dark);
+    font-weight:700;
+  }
+  table.schedule td.off{
+    color:var(--ink-soft);
+    font-style:italic;
+  }
+  table.schedule td.hours{
+    color:var(--forest-dark);
+    font-weight:600;
+  }
+  .hero-note{
+    margin-top:14px;
+    font-size:0.9rem;
+    color:var(--ink-soft);
+    border-left:3px solid var(--rust);
+    padding-left:12px;
+  }
+
+  /* ---------- Sections ---------- */
+  section{padding:44px 0;}
+  section + section{border-top:1px solid var(--line);}
+  section h2{font-size:1.5rem;}
+  .section-lede{color:var(--ink-soft); max-width:60ch; margin-top:-6px; margin-bottom:26px;}
+
+  /* ---------- Notice cards ---------- */
+  .notice-grid{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:18px;
+  }
+  @media (max-width:680px){
+    .notice-grid{grid-template-columns:1fr;}
+  }
+  .notice{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-left:5px solid var(--moss);
+    padding:20px 20px 18px;
+  }
+  .notice--waste{border-left-color:var(--amber);}
+  .notice--fees{border-left-color:var(--rust);}
+  .notice h3{
+    font-size:1.1rem;
+    margin-bottom:6px;
+  }
+  .notice .date-tag{
+    display:inline-block;
+    font-size:0.78rem;
+    color:var(--ink-soft);
+    margin-bottom:10px;
+  }
+  .notice p{margin:0 0 10px;}
+  .notice ol, .notice ul{margin:10px 0; padding-left:22px;}
+  .notice li{margin-bottom:4px;}
+  .notice img{
+    width:100%;
+    height:auto;
+    border:1px solid var(--line);
+    margin-top:6px;
+    display:block;
+  }
+  .notice .meta{
+    font-size:0.88rem;
+    color:var(--ink-soft);
+    border-top:1px solid var(--line-soft);
+    padding-top:10px;
+    margin-top:12px;
+  }
+
+  /* ---------- Ledger (payments) ---------- */
+  .ledger-panel{
+    background:var(--card);
+    border:1px solid var(--line);
+    padding:26px 28px;
+  }
+  .ledger-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:22px 32px;
+    margin-top:18px;
+  }
+  @media (max-width:680px){
+    .ledger-grid{grid-template-columns:1fr;}
+  }
+  .ledger-item dt{
+    font-size:0.82rem;
+    color:var(--ink-soft);
+    margin-bottom:3px;
+  }
+  .ledger-item dd{
+    margin:0 0 16px;
+    font-weight:600;
+    color:var(--forest-dark);
+    font-size:1.02rem;
+  }
+  .rate-list{
+    margin-top:20px;
+    border-top:1px solid var(--line-soft);
+    padding-top:16px;
+  }
+  .rate-row{
+    display:flex;
+    justify-content:space-between;
+    padding:8px 0;
+    border-bottom:1px dashed var(--line-soft);
+    font-size:0.96rem;
+  }
+  .rate-row span:last-child{font-weight:700; color:var(--forest-dark);}
+  .fine-print{font-size:0.85rem; color:var(--ink-soft); margin-top:14px;}
+
+  /* ---------- Susirinkimų archyvas ---------- */
+  ul.year-ledger{
+    list-style:none;
+    margin:0; padding:0;
+    border-top:1px solid var(--line);
+  }
+  ul.year-ledger li{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    padding:13px 4px;
+    border-bottom:1px solid var(--line);
+  }
+  ul.year-ledger .yr{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    color:var(--forest-dark);
+    font-size:1.05rem;
+  }
+  ul.year-ledger a{
+    text-decoration:none;
+    font-size:0.92rem;
+  }
+  ul.year-ledger a:hover{text-decoration:underline;}
+
+  /* ---------- Dokumentai ---------- */
+  .doc-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:18px;
+  }
+  @media (max-width:680px){.doc-grid{grid-template-columns:1fr;}}
+  .doc-card{
+    border:1px solid var(--line);
+    background:var(--card);
+    padding:18px 20px;
+  }
+  .doc-card h3{font-size:1.05rem; margin-bottom:6px;}
+  .doc-card p{color:var(--ink-soft); font-size:0.92rem; margin:0 0 10px;}
+  .doc-card .thumbs{display:flex; gap:8px; margin:10px 0;}
+  .doc-card .thumbs img{width:33%; height:70px; object-fit:cover; border:1px solid var(--line);}
+  .doc-link{
+    display:inline-block;
+    font-weight:700;
+    font-size:0.9rem;
+    color:var(--forest-dark);
+    border-bottom:2px solid var(--amber);
+    text-decoration:none;
+    padding-bottom:1px;
+  }
+
+  /* ---------- Ankstesni pranešimai (accordion) ---------- */
+  details.year-entry{
+    border-bottom:1px solid var(--line);
+    padding:14px 2px;
+  }
+  details.year-entry summary{
+    cursor:pointer;
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:1.08rem;
+    color:var(--forest-dark);
+    list-style:none;
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    gap:12px;
+  }
+  details.year-entry summary::-webkit-details-marker{display:none;}
+  details.year-entry summary .teaser{
+    font-family:'Karla', sans-serif;
+    font-weight:400;
+    color:var(--ink-soft);
+    font-size:0.9rem;
+    text-align:right;
+    flex:1;
+  }
+  details.year-entry summary .plus{
+    font-family:'Karla', sans-serif;
+    font-weight:700;
+    color:var(--amber-dark);
+    flex:none;
+  }
+  details.year-entry[open] summary .plus{transform:rotate(45deg); display:inline-block;}
+  details.year-entry .entry-body{
+    margin-top:12px;
+    padding-left:2px;
+  }
+  details.year-entry .entry-body ul{margin:0; padding-left:20px;}
+  details.year-entry .entry-body li{margin-bottom:6px; color:var(--ink);}
+  .remembrance{
+    margin-top:18px;
+    padding:14px 16px;
+    border-left:2px solid var(--line);
+    color:var(--ink-soft);
+    font-style:italic;
+    font-size:0.95rem;
+  }
+
+  /* ---------- Kontaktai ---------- */
+  .contact-grid{
+    display:grid;
+    grid-template-columns:1.1fr 1fr;
+    gap:32px;
+  }
+  @media (max-width:680px){.contact-grid{grid-template-columns:1fr;}}
+  .board-list{list-style:none; margin:12px 0 0; padding:0;}
+  .board-list li{
+    padding:9px 0;
+    border-bottom:1px solid var(--line-soft);
+    font-size:0.96rem;
+  }
+  .board-list li.chair{font-weight:700; color:var(--forest-dark);}
+  .contact-channels dt{font-size:0.82rem; color:var(--ink-soft); margin-top:14px;}
+  .contact-channels dd{margin:2px 0 0; font-weight:600;}
+
+  /* ---------- Footer ---------- */
+  footer{
+    background:var(--forest-dark);
+    color:#cfd6c3;
+    padding:34px 0 24px;
+    font-size:0.88rem;
+  }
+  footer .wrap{display:flex; flex-wrap:wrap; justify-content:space-between; gap:20px;}
+  footer a{color:#e8e3c9;}
+  footer .disclaimer{
+    max-width:920px;
+    margin:24px auto 0;
+    padding:16px 24px 0;
+    border-top:1px solid #3c5238;
+    color:#9fab92;
+    font-size:0.82rem;
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-top">
+    <svg class="mark" width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M6 30 C6 18, 14 9, 23 9 C32 9, 40 18, 40 30 L40 33 C40 35 38 36 36 35 L32 33 L29 36 L25 33 L21 36 L17 33 L13 35 C11 36 9 35 9 33 Z" fill="#f2f0e1" opacity="0.95"/>
+      <circle cx="30" cy="20" r="2.4" fill="#2f4a2c"/>
+      <circle cx="13" cy="12" r="2.6" fill="#bd8a2e"/>
+    </svg>
+    <div>
+      <p class="header-title">Sodininkų bendrija „Šernai“</p>
+      <p class="header-sub">Žiaukų k., Priekulės sen., Klaipėdos r. sav.</p>
+    </div>
+  </div>
+  <nav class="site-nav" aria-label="Pagrindinė navigacija">
+    <ul>
+      <li><a href="#pradzia">Naujausia informacija</a></li>
+      <li><a href="#pranesimai">Aktualu dabar</a></li>
+      <li><a href="#mokesciai">Mokesčiai</a></li>
+      <li><a href="#susirinkimai">Susirinkimų medžiaga</a></li>
+      <li><a href="#dokumentai">Žemėlapis ir taisyklės</a></li>
+      <li><a href="#ankstesni">Archyvas</a></li>
+      <li><a href="#kontaktai">Kontaktai</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+
+  <section id="pradzia" class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Sodininkų bendrijos naujienos ir tvarkaraščiai</p>
+      <h1>2026 m. laistymo sezonas jau prasidėjęs</h1>
+      <p class="lede">Vanduo laistymui tiekiamas pagal savaitės grafiką žemiau. Lietingomis dienomis arba įvykus gedimui vanduo neteikiamas — apie tai atskirai neinformuojama.</p>
+
+      <table class="schedule">
+        <caption>Vandens tiekimo grafikas, 2026 m.</caption>
+        <thead>
+          <tr>
+            <th scope="col">Pr</th><th scope="col">An</th><th scope="col">Tr</th>
+            <th scope="col">Kt</th><th scope="col">Pn</th><th scope="col">Št</th><th scope="col">Sk</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="off">netiekiama</td>
+            <td class="hours">10–12</td>
+            <td class="hours">17–19</td>
+            <td class="hours">10–12</td>
+            <td class="hours">17–19</td>
+            <td class="hours">10–13</td>
+            <td class="hours">10–12</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="hero-note">Draudžiama palikti atsuktus čiaupus savo sklypuose.</p>
+    </div>
+  </section>
+
+  <section id="pranesimai">
+    <div class="wrap">
+      <h2>Aktualu dabar</h2>
+      <p class="section-lede">Naujausi valdybos pranešimai bendrijos nariams ir gyventojams.</p>
+
+      <div class="notice-grid">
+
+        <article class="notice">
+          <span class="date-tag">2026-04-11, 11:00</span>
+          <h3>Šaukiamas ataskaitinis narių susirinkimas</h3>
+          <p>Susirinkimas vyks bendrijos buveinėje, Aušros al. 2, Žiaukų k. Nariai registruojami nuo 10 val. — būtina turėti asmens dokumentą ir nario teises patvirtinantį dokumentą.</p>
+          <ol>
+            <li>Revizijos komisijos išvados apie 2025 m. finansinę veiklą</li>
+            <li>Valdybos ataskaita apie 2025 m. veiklą</li>
+            <li>2025 m. pajamų ir sąnaudų svarstymas bei tvirtinimas</li>
+            <li>Bendrijos įstatų keitimas</li>
+            <li>Vandens siurblinės renovacija</li>
+            <li>Revizijos komisijos nario rinkimai</li>
+            <li>Kiti klausimai</li>
+          </ol>
+          <p class="meta">Susirinkimui neįvykus, pakartotinis susirinkimas — <strong>2026-04-25, 11:00</strong>, ta pačia tvarka. Su sprendimų projektais galima susipažinti buveinėje šeštadieniais 10–14 val. Informacija tel. 8-646-92112.</p>
+        </article>
+
+        <article class="notice notice--waste">
+          <span class="date-tag">2026 m.</span>
+          <h3>Komunalinių atliekų išvežimo grafikas</h3>
+          <p>Šių metų išvežimo datos ir dienos pateiktos oficialiame grafike:</p>
+          <img src="https://sbsernai.weebly.com/uploads/3/7/1/5/3715819/editor/grafikas.jpg?1768632303" alt="2026 m. komunalinių atliekų išvežimo grafikas" loading="lazy">
+        </article>
+
+        <article class="notice notice--fees">
+          <span class="date-tag">Nuolat</span>
+          <h3>Mokestinių lapų atsiėmimas</h3>
+          <p>Mokestinius lapus galima atsiimti bendrijos būstinėje, Aušros al. 2:</p>
+          <ul>
+            <li>Antradieniais ir ketvirtadieniais, 9–13 val.</li>
+            <li>Šeštadieniais, 9–14 val.</li>
+          </ul>
+          <p class="meta">Kas antrą šeštadienį būstinėje budi buhalterė — galite atvykti su klausimais dėl mokėjimų.</p>
+        </article>
+
+        <article class="notice">
+          <span class="date-tag">Kasmet</span>
+          <h3>Skirkite 1,2 % gyventojų pajamų mokesčio</h3>
+          <p>Parama padeda bendrijai nuveikti daugiau. Norint paskirti:</p>
+          <ol>
+            <li>Prisijunkite prie Elektroninio deklaravimo sistemos (EDS)</li>
+            <li>Pasirinkite „Pildyti formą“ ir susiraskite formą FR0512</li>
+            <li>Paramos gavėjo grafoje įrašykite SB „Šernai“ kodą <strong>163672133</strong></li>
+            <li>Pateikite prašymą</li>
+          </ol>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="mokesciai">
+    <div class="wrap">
+      <h2>Mokesčiai ir atsiskaitymas</h2>
+      <p class="section-lede">Mokėti galima šeštadieniais bendrijos būstinėje arba pavedimu — nurodant sklypo numerį ir adresą.</p>
+
+      <div class="ledger-panel">
+        <dl class="ledger-grid">
+          <div>
+            <div class="ledger-item">
+              <dt>Gavėjas</dt>
+              <dd>Klaipėdos rajono sodininkų bendrija „Šernai“</dd>
+            </div>
+            <div class="ledger-item">
+              <dt>Banko sąskaita (Swedbank)</dt>
+              <dd>LT05 7300 0100 0232 7966</dd>
+            </div>
+          </div>
+          <div>
+            <div class="ledger-item">
+              <dt>Juridinio asmens kodas</dt>
+              <dd>163672133</dd>
+            </div>
+            <div class="ledger-item">
+              <dt>Mokėjimo paskirtyje būtina nurodyti</dt>
+              <dd>Sklypo numerį ir adresą</dd>
+            </div>
+          </div>
+        </dl>
+
+        <div class="rate-list">
+          <div class="rate-row"><span>Sodininko mokestis</span><span>9 €/aras</span></div>
+          <div class="rate-row"><span>Vanduo laistymui</span><span>15 €/sklypas</span></div>
+          <div class="rate-row"><span>Tikslinis mokestis</span><span>10 €/sklypas</span></div>
+        </div>
+        <p class="fine-print">Tarifai patvirtinti 2023 m. balandžio 15 d. narių susirinkime; dėl aktualių metų sumų teiraukitės buhalterės arba tikrinkite mokestiniame lape.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="susirinkimai">
+    <div class="wrap">
+      <h2>Susirinkimų medžiaga</h2>
+      <p class="section-lede">Ataskaitinių ir rinkiminių susirinkimų protokolai bei medžiaga pagal metus.</p>
+
+      <ul class="year-ledger">
+        <li><span class="yr">2025-04-05</span> <a href="https://sbsernai.weebly.com/2025-04-05.html">Susirinkimo medžiaga</a></li>
+        <li><span class="yr">2022-04-09</span> <a href="https://sbsernai.weebly.com/2022-04-09.html">Susirinkimo medžiaga</a></li>
+        <li><span class="yr">2019-04-13</span> <a href="https://sbsernai.weebly.com/2019-04-13.html">Susirinkimo medžiaga</a></li>
+        <li><span class="yr">2018-04-14</span> <a href="https://sbsernai.weebly.com/2018-04-14.html">Susirinkimo medžiaga</a></li>
+        <li><span class="yr">2017-04-22</span> <a href="https://sbsernai.weebly.com/2017-04-22.html">Susirinkimo medžiaga</a></li>
+        <li><span class="yr">2016-04-23</span> <a href="https://sbsernai.weebly.com/2016-04-23.html">Susirinkimo medžiaga</a></li>
+        <li><span class="yr">2015-04-18</span> <a href="https://sbsernai.weebly.com/2015-04-18.html">Susirinkimo medžiaga</a></li>
+        <li><span class="yr">2014-04-12</span> <a href="https://sbsernai.weebly.com/2014-04-12.html">Susirinkimo medžiaga</a></li>
+        <li><span class="yr">2013-04-27</span> <a href="https://sbsernai.weebly.com/2013-04-27.html">Susirinkimo medžiaga</a></li>
+        <li><span class="yr">2012-04-21</span> <a href="https://sbsernai.weebly.com/2012-04-21.html">Susirinkimo medžiaga</a></li>
+        <li><span class="yr">2011-04-09</span> <a href="https://sbsernai.weebly.com/2011-04-09.html">Susirinkimo medžiaga</a></li>
+        <li><span class="yr">2010-11-13</span> <a href="https://sbsernai.weebly.com/2010-11-13.html">Susirinkimo medžiaga</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="dokumentai">
+    <div class="wrap">
+      <h2>Žemėlapis ir vidaus tvarkos taisyklės</h2>
+      <p class="section-lede">Bendrijos teritorijos schema ir galiojančios vidaus tvarkos taisyklės atsisiuntimui.</p>
+
+      <div class="doc-grid">
+        <div class="doc-card">
+          <h3>Teritorijos schema</h3>
+          <p>Gatvių planas ir sklypų išdėstymas bendrijos teritorijoje.</p>
+          <div class="thumbs">
+            <img src="https://sbsernai.weebly.com/uploads/3/7/1/5/3715819/scan0019.jpg" alt="Gatvių planas 1" loading="lazy">
+            <img src="https://sbsernai.weebly.com/uploads/3/7/1/5/3715819/scan0020.jpg" alt="Gatvių planas 2" loading="lazy">
+            <img src="https://sbsernai.weebly.com/uploads/3/7/1/5/3715819/scan0022.jpg" alt="Gatvių planas 3" loading="lazy">
+          </div>
+          <a class="doc-link" href="https://sbsernai.weebly.com/uploads/3/7/1/5/3715819/teritorijos_schema.pdf">Atsisiųsti teritorijos_schema.pdf</a>
+        </div>
+
+        <div class="doc-card">
+          <h3>Vidaus tvarkos taisyklės</h3>
+          <p>Pilnas taisyklių dokumentas PDF formatu (9,3 MB).</p>
+          <a class="doc-link" href="https://sbsernai.weebly.com/uploads/3/7/1/5/3715819/vidaus_tvarkos_taisykls.pdf">Atsisiųsti vidaus_tvarkos_taisykles.pdf</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="ankstesni">
+    <div class="wrap">
+      <h2>Ankstesni pranešimai</h2>
+      <p class="section-lede">Senesni valdybos skelbimai, sugrupuoti pagal metus.</p>
+
+      <details class="year-entry">
+        <summary><span>2025</span><span class="teaser">atostogos, sezono pabaiga, mokestiniai lapai</span><span class="plus">+</span></summary>
+        <div class="entry-body">
+          <ul>
+            <li>Nuo 2025-10-01 iki 10-28 bendrijos pirmininkas atostogauja — skambinti tik būtinais atvejais.</li>
+            <li>Laistymo sezonas oficialiai baigtas rugsėjo 14 d.; nuo rugsėjo 15 d. santechnikai tikrino trasas, prašyta užtikrinti laisvą priėjimą prie vamzdžių.</li>
+            <li>Galiojo 2025 m. vandens tiekimo grafikas (antradieniais ir ketvirtadieniais 10–13 val., trečiadieniais ir penktadieniais 17–20 val., šeštadieniais 10–13 val., sekmadieniais 10–12 val.).</li>
+          </ul>
+          <p class="remembrance">Netekome ilgametės Sodininkų bendrijos „Šernai“ pirmininkės Dainos Baronienės. Reiškiame nuoširdžią užuojautą jos šeimai, artimiesiems ir draugams.</p>
+        </div>
+      </details>
+
+      <details class="year-entry">
+        <summary><span>2024</span><span class="teaser">neeilinis susirinkimas, mokėjimo kvitai</span><span class="plus">+</span></summary>
+        <div class="entry-body">
+          <ul>
+            <li>2024-06-29 šauktas neeilinis narių susirinkimas: elektros oro linijų naikinimo projektas, nuovažos leidimas iš Agrastų g. į Čiurlių al., baudos už apleistus sklypus. Pakartotinis susirinkimas — 2024-07-20.</li>
+            <li>Suformuoti mokėjimo kvitai, atsiimami pas pirmininką arba siunčiami el. paštu; raginta apmokėti iki metų pabaigos.</li>
+            <li>Galiojo 2024 m. vandens tiekimo grafikas pagal savaitės dienas (II–VII), santechniko tel. 8-673-34285.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="year-entry">
+        <summary><span>2023</span><span class="teaser">metinis susirinkimas, patvirtinti tarifai</span><span class="plus">+</span></summary>
+        <div class="entry-body">
+          <ul>
+            <li>2023-04-15, 11:00 — bendrijos narių metinis ataskaitinis susirinkimas buveinėje, Aušros al. 2.</li>
+            <li>Tame susirinkime patvirtinti 2023 m. tarifai: sodininko mokestis 9 €/aras, vanduo laistymui 15 €/sklypas, tikslinis mokestis 10 €/sklypas.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="year-entry">
+        <summary><span>2020–2022</span><span class="teaser">karantinas, talka, didelių atliekų grafikas</span><span class="plus">+</span></summary>
+        <div class="entry-body">
+          <ul>
+            <li>Dėl karantino apribojimų 2021 m. visuotinis narių susirinkimas atidėtas iki sąlygų pasikeitimo.</li>
+            <li>Kviesta pasirašyti dėl pėsčiųjų / dviračių tako projekto per mišką link SB „Minija“, „Gilė“ ir Rokų gyvenvietės (~1,2 km).</li>
+            <li>Nuo 2021-10-01 mokesčiai bendrijos būstinėje priimami tik šeštadieniais, 10–14 val.</li>
+            <li>2020 m. stambiagabaričių atliekų konteineriai statyti balandžio 25 d., gegužės 16 d., birželio 27 d. ir rugpjūčio 8 d.; bendrijos talka vyko birželio 27 d.</li>
+            <li>2020-09-20 nutrauktas vandens tiekimas laistymui sezono pabaigoje.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="year-entry">
+        <summary><span>2017–2019</span><span class="teaser">konteinerių registracija, dujofikavimas</span><span class="plus">+</span></summary>
+        <div class="entry-body">
+          <ul>
+            <li>Nuo 2019-08-06 galiojo naujas vandens tiekimo laistymui grafikas savaitės dienomis.</li>
+            <li>Priekulės seniūnija informavo apie galimybę registruotis žaliųjų atliekų kompostavimo konteineriams.</li>
+            <li>2018 m. pratęstas terminas pildyti paraiškas dėl dujofikavimo.</li>
+            <li>Priminta nuolatiniams gyventojams registruoti komunalinių atliekų konteinerių numerius (formatas „55-L-…“), kad „Ekonovus“ juos aptarnautų.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="year-entry">
+        <summary><span>2014</span><span class="teaser">Derliaus šventė</span><span class="plus">+</span></summary>
+        <div class="entry-body">
+          <ul>
+            <li>Nuotraukos iš 2014 m. Derliaus šventės — <a href="https://www.facebook.com/media/set/?set=a.1470044656615363.1073741831.1469988873287608&type=3">bendrijos Facebook paskyroje</a>.</li>
+          </ul>
+        </div>
+      </details>
+
+    </div>
+  </section>
+
+  <section id="kontaktai">
+    <div class="wrap">
+      <h2>Kontaktai</h2>
+      <div class="contact-grid">
+        <div>
+          <h3 style="font-size:1.05rem;">Valdyba</h3>
+          <ul class="board-list">
+            <li class="chair">Antanas Levickas — valdybos pirmininkas · 8-646-92112</li>
+            <li>Vaida Levickienė</li>
+            <li>Edita Bertašienė</li>
+            <li>Sigita Skyrienė</li>
+            <li>Jūratė Malejeva</li>
+          </ul>
+        </div>
+        <dl class="contact-channels">
+          <dt>El. paštas</dt>
+          <dd><a href="mailto:sernai.valdyba@gmail.com">sernai.valdyba@gmail.com</a></dd>
+          <dt>Facebook</dt>
+          <dd><a href="https://www.facebook.com/SodininkuBendrijaSernai">facebook.com/SodininkuBendrijaSernai</a></dd>
+          <dt>Buhalterė</dt>
+          <dd>8-673-34280</dd>
+          <dt>Santechnikas</dt>
+          <dd>8-673-34285</dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <strong style="color:#f2f0e1;">Sodininkų bendrija „Šernai“</strong><br>
+      Aušros al. 2, Žiaukų k., Priekulės sen., Klaipėdos r. sav.
+    </div>
+    <div>
+      <a href="#pradzia">Naujausia informacija</a><br>
+      <a href="#susirinkimai">Susirinkimų medžiaga</a><br>
+      <a href="#kontaktai">Kontaktai</a>
+    </div>
+  </div>
+  <p class="disclaimer">
+    
+  </p>
+</footer>
+
+</body>
+</html>
