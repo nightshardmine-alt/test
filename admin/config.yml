@@ -1,0 +1,63 @@
+# Sveltia CMS konfigūracija SB "Šernai" svetainei.
+#
+# backend: github — Sveltia prisijungia tiesiai per GitHub OAuth, kurį Netlify
+# tarpininkauja automatiškai (api.netlify.com), kai svetainė talpinama Netlify.
+# Reikia VIENĄ KARTĄ užregistruoti GitHub OAuth App ir įvesti jos duomenis Netlify
+# skydelyje: Project configuration → Access & security → OAuth → Install Provider.
+# Jokio Identity / Git Gateway šiam variantui nereikia.
+backend:
+  name: github
+  repo: nightshardmine-alt/test
+  branch: main
+
+# Kur Decap saugo įkeltus paveikslėlius (šiame projekte paveikslėliai kol kas
+# įvedami kaip nuorodos "image" laukelyje, bet ši nuostata reikalinga bendrai).
+media_folder: "data/uploads"
+public_folder: "/data/uploads"
+
+collections:
+  - name: "site_content"
+    label: "Svetainės turinys"
+    files:
+      - file: "data/content.json"
+        label: "Pagrindinis turinys (grafikas + pranešimai)"
+        name: "content"
+        fields:
+          - { label: "Sezono žyma (virš antraštės)", name: "season_tag", widget: "string" }
+          - { label: "Antraštė — pirma dalis", name: "hero_title", widget: "string" }
+          - { label: "Antraštė — paryškinta dalis", name: "hero_title_accent", widget: "string" }
+          - { label: "Įžanginis tekstas", name: "hero_lede", widget: "text" }
+
+          - label: "Vandens tiekimo grafikas"
+            name: "schedule"
+            widget: "list"
+            summary: "{{fields.day}}: {{fields.hours}}"
+            fields:
+              - { label: "Savaitės diena (Pr/An/Tr/Kt/Pn/Št/Sk)", name: "day", widget: "string" }
+              - { label: "Valandos (arba — jei netiekiama)", name: "hours", widget: "string" }
+
+          - label: "Pranešimai (skiltis „Aktualu dabar“)"
+            name: "notices"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - label: "Žymos spalva"
+                name: "tag_style"
+                widget: "select"
+                options: ["forest", "amber", "rust", "moss"]
+              - { label: "Žymos tekstas (pvz. „Susirinkimas“)", name: "tag_label", widget: "string" }
+              - { label: "Data / laikas", name: "date", widget: "string" }
+              - { label: "Pavadinimas", name: "title", widget: "string" }
+              - { label: "Pagrindinis tekstas", name: "body", widget: "text", required: false }
+              - label: "Sąrašo tipas"
+                name: "list_style"
+                widget: "select"
+                options: ["ul", "ol"]
+                default: "ul"
+              - label: "Sąrašo punktai"
+                name: "list"
+                widget: "list"
+                required: false
+                field: { label: "Punktas", name: "item", widget: "string" }
+              - { label: "Nuotraukos nuoroda (URL, neprivaloma)", name: "image", widget: "string", required: false }
+              - { label: "Papildoma pastaba apačioje", name: "meta", widget: "string", required: false }
