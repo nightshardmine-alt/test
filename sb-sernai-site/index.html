@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sodininkų bendrija „Šernai“</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#f8f3e6;
+    --cream-deep:#f1ead4;
+    --sage:#eef0e0;
+    --sage-deep:#e4e8d2;
+    --ink:#20261a;
+    --ink-soft:#5c6752;
+    --forest:#33512c;
+    --forest-dark:#1f3319;
+    --forest-deeper:#152412;
+    --moss:#74936a;
+    --amber:#c98b34;
+    --amber-soft:#e7c07f;
+    --amber-dark:#9c6a1f;
+    --rust:#a1462e;
+    --card:#fffdf6;
+    --shadow:0 14px 34px -18px rgba(31,51,25,0.35);
+    --radius-lg:20px;
+    --radius-md:14px;
+    --radius-pill:999px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;}
+  }
+
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Karla', sans-serif;
+    font-size:17px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  h1,h2,h3{
+    font-family:'Fraunces', serif;
+    color:var(--forest-dark);
+    line-height:1.12;
+    margin:0 0 0.5em 0;
+    font-weight:600;
+  }
+  h1 em, h2 em{
+    font-style:italic;
+    font-weight:500;
+    color:var(--amber-dark);
+  }
+
+  a{color:var(--forest);}
+  a:hover{color:var(--amber-dark);}
+  a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visible + label{
+    outline:3px solid var(--amber);
+    outline-offset:2px;
+  }
+
+  .wrap{
+    max-width:1120px;
+    margin:0 auto;
+    padding:0 24px;
+  }
+  @media (max-width:600px){
+    .wrap{padding:0 18px;}
+  }
+
+  .tag{
+    display:inline-block;
+    font-size:0.76rem;
+    font-weight:700;
+    letter-spacing:0.02em;
+    padding:5px 13px;
+    border-radius:var(--radius-pill);
+    margin-bottom:14px;
+  }
+  .tag--forest{background:rgba(51,81,44,0.12); color:var(--forest-dark);}
+  .tag--amber{background:rgba(201,139,52,0.18); color:var(--amber-dark);}
+  .tag--rust{background:rgba(161,70,46,0.14); color:var(--rust);}
+  .tag--moss{background:rgba(116,147,106,0.16); color:var(--forest);}
+  .tag--light{background:rgba(255,255,255,0.14); color:#eef0e0;}
+
+  /* ---------- Header ---------- */
+  header.site-header{
+    background:var(--forest-dark);
+  }
+  .header-bar{
+    max-width:1120px;
+    margin:0 auto;
+    padding:20px 24px;
+    display:flex;
+    align-items:center;
+    gap:14px;
+  }
+  .mark{flex:none;}
+  .header-title{
+    font-family:'Fraunces', serif;
+    font-size:1.4rem;
+    font-weight:600;
+    color:#f7f4e7;
+    margin:0;
+  }
+  .header-sub{
+    margin:2px 0 0;
+    font-size:0.85rem;
+    color:#b7c2a9;
+  }
+  nav.site-nav{
+    background:var(--forest-deeper);
+    border-top:1px solid rgba(255,255,255,0.08);
+  }
+  nav.site-nav ul{
+    max-width:1120px;
+    margin:0 auto;
+    padding:12px 24px;
+    list-style:none;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:8px;
+  }
+  nav.site-nav a{
+    display:block;
+    padding:8px 17px;
+    border-radius:var(--radius-pill);
+    color:#dbe3cc;
+    text-decoration:none;
+    font-size:0.88rem;
+    font-weight:600;
+    transition:background-color .15s ease, color .15s ease;
+  }
+  nav.site-nav a:hover{
+    background:rgba(255,255,255,0.12);
+    color:#fff;
+  }
+
+  /* ---------- Bands ---------- */
+  .band{padding:64px 0;}
+  .band--cream{background:var(--cream);}
+  .band--sage{background:var(--sage);}
+  .band--dark{
+    background:var(--forest-dark);
+    color:#e9ecdb;
+    position:relative;
+    overflow:hidden;
+  }
+  .band--dark h2{color:#f7f4e7;}
+  .band--dark .section-lede{color:#b7c2a9;}
+  .ring{
+    position:absolute;
+    border-radius:50%;
+    border:1px solid rgba(255,255,255,0.08);
+    pointer-events:none;
+  }
+  section h2{font-size:clamp(1.5rem, 1.1rem + 1.6vw, 2.05rem);}
+  .section-lede{color:var(--ink-soft); max-width:58ch; margin-top:-6px; margin-bottom:32px; font-size:1.02rem;}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;
+    overflow:hidden;
+    padding:68px 0 60px;
+    background:linear-gradient(155deg, var(--cream) 0%, var(--cream-deep) 55%, var(--sage) 100%);
+  }
+  .hero-blob{
+    position:absolute;
+    width:520px; height:520px;
+    border-radius:50%;
+    background:radial-gradient(circle at 32% 30%, rgba(201,139,52,0.22), transparent 70%);
+    top:-180px; right:-160px;
+    pointer-events:none;
+  }
+  .hero-ring{
+    position:absolute;
+    width:340px;height:340px;
+    border-radius:50%;
+    border:1px solid rgba(51,81,44,0.14);
+    top:20px; right:40px;
+    pointer-events:none;
+  }
+  .hero-grid{
+    position:relative;
+    display:grid;
+    grid-template-columns:1.15fr 0.95fr;
+    gap:48px;
+    align-items:center;
+  }
+  @media (max-width:880px){
+    .hero-grid{grid-template-columns:1fr; gap:34px;}
+  }
+  .hero h1{
+    font-size:clamp(2.1rem, 1.4rem + 3vw, 3.1rem);
+    max-width:15ch;
+  }
+  .hero .lede{
+    max-width:52ch;
+    color:var(--ink-soft);
+    font-size:1.07rem;
+    margin-top:16px;
+  }
+  .hero-note{
+    margin-top:18px;
+    font-size:0.92rem;
+    color:var(--ink-soft);
+    display:flex;
+    align-items:baseline;
+    gap:8px;
+  }
+  .hero-note::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--rust);flex:none;margin-bottom:2px;}
+
+  .schedule-card{
+    background:var(--card);
+    border-radius:var(--radius-lg);
+    box-shadow:var(--shadow);
+    padding:26px 24px 22px;
+  }
+  .schedule-card h3{
+    font-size:1.05rem;
+    margin-bottom:16px;
+  }
+  table.schedule{
+    border-collapse:collapse;
+    width:100%;
+  }
+  table.schedule th, table.schedule td{
+    padding:10px 4px;
+    text-align:center;
+    font-size:0.86rem;
+  }
+  table.schedule thead th{
+    color:var(--ink-soft);
+    font-weight:700;
+    border-bottom:1px solid var(--sage-deep);
+  }
+  table.schedule td.off{
+    color:var(--ink-soft);
+    font-style:italic;
+  }
+  table.schedule td.hours{
+    color:var(--forest-dark);
+    font-weight:700;
+    font-size:0.94rem;
+  }
+
+  /* ---------- Notice cards ---------- */
+  .notice-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:22px;
+  }
+  @media (max-width:720px){
+    .notice-grid{grid-template-columns:1fr;}
+  }
+  .notice{
+    background:var(--card);
+    border-radius:var(--radius-lg);
+    box-shadow:var(--shadow);
+    padding:26px 26px 22px;
+  }
+  .notice h3{
+    font-size:1.15rem;
+    margin-bottom:8px;
+  }
+  .notice .date-tag{
+    display:block;
+    font-size:0.78rem;
+    color:var(--ink-soft);
+    margin:-6px 0 10px;
+  }
+  .notice p{margin:0 0 10px;}
+  .notice ol, .notice ul{margin:12px 0; padding-left:22px;}
+  .notice li{margin-bottom:5px;}
+  .notice img{
+    width:100%;
+    height:auto;
+    border-radius:var(--radius-md);
+    margin-top:8px;
+    display:block;
+  }
+  .notice .meta{
+    font-size:0.87rem;
+    color:var(--ink-soft);
+    border-top:1px solid var(--sage-deep);
+    padding-top:12px;
+    margin-top:14px;
+  }
+
+  /* ---------- Mokesčiai (dark band) ---------- */
+  .ledger-card{
+    background:var(--card);
+    color:var(--ink);
+    border-radius:var(--radius-lg);
+    padding:30px 32px;
+    box-shadow:0 24px 60px -22px rgba(0,0,0,0.45);
+  }
+  .ledger-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:22px 36px;
+  }
+  @media (max-width:680px){
+    .ledger-grid{grid-template-columns:1fr;}
+  }
+  .ledger-item dt{
+    font-size:0.8rem;
+    color:var(--ink-soft);
+    margin-bottom:3px;
+  }
+  .ledger-item dd{
+    margin:0 0 14px;
+    font-weight:700;
+    color:var(--forest-dark);
+    font-size:1.04rem;
+  }
+  .rate-list{
+    margin-top:8px;
+    padding-top:18px;
+    border-top:1px solid var(--sage-deep);
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:14px;
+  }
+  @media (max-width:680px){
+    .rate-list{grid-template-columns:1fr;}
+  }
+  .rate-chip{
+    background:var(--sage);
+    border-radius:var(--radius-md);
+    padding:14px 16px;
+  }
+  .rate-chip .label{display:block; font-size:0.82rem; color:var(--ink-soft); margin-bottom:4px;}
+  .rate-chip .value{font-family:'Fraunces', serif; font-size:1.3rem; font-weight:600; color:var(--forest-dark);}
+  .fine-print{font-size:0.85rem; color:var(--ink-soft); margin-top:16px;}
+
+  /* ---------- Susirinkimų archyvas ---------- */
+  .year-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(160px, 1fr));
+    gap:14px;
+  }
+  .year-chip{
+    background:var(--card);
+    border-radius:var(--radius-md);
+    padding:16px 18px;
+    text-decoration:none;
+    display:block;
+    box-shadow:var(--shadow);
+  }
+  .year-chip .yr{
+    display:block;
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    color:var(--forest-dark);
+    font-size:1.15rem;
+  }
+  .year-chip .lbl{
+    display:block;
+    font-size:0.8rem;
+    color:var(--ink-soft);
+    margin-top:3px;
+  }
+  .year-chip:hover .yr{color:var(--amber-dark);}
+
+  /* ---------- Dokumentai ---------- */
+  .doc-grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:26px;
+  }
+  .doc-card{
+    border-radius:var(--radius-lg);
+    background:var(--card);
+    box-shadow:var(--shadow);
+    padding:24px 26px 28px;
+  }
+  .doc-card h3{font-size:1.12rem; margin-bottom:6px;}
+  .doc-card p{color:var(--ink-soft); font-size:0.93rem; margin:0 0 14px;}
+  .doc-card .thumbs{display:flex; gap:8px; margin:0 0 16px;}
+  .doc-card .thumbs img{width:33%; height:96px; object-fit:cover; border-radius:8px;}
+  .pdf-frame{
+    width:100%;
+    height:560px;
+    border:1px solid var(--sage-deep);
+    border-radius:var(--radius-md);
+    background:#fff;
+    display:block;
+  }
+  @media (max-width:680px){
+    .pdf-frame{height:420px;}
+    .doc-card .thumbs img{height:76px;}
+  }
+  .doc-hint{
+    display:block;
+    font-size:0.82rem;
+    color:var(--ink-soft);
+    margin-top:10px;
+  }
+
+  /* ---------- Ankstesni pranešimai (accordion) ---------- */
+  details.year-entry{
+    background:var(--card);
+    border-radius:var(--radius-md);
+    padding:16px 20px;
+    margin-bottom:12px;
+  }
+  details.year-entry summary{
+    cursor:pointer;
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:1.08rem;
+    color:var(--forest-dark);
+    list-style:none;
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    gap:12px;
+  }
+  details.year-entry summary::-webkit-details-marker{display:none;}
+  details.year-entry summary .teaser{
+    font-family:'Karla', sans-serif;
+    font-weight:400;
+    color:var(--ink-soft);
+    font-size:0.88rem;
+    text-align:right;
+    flex:1;
+  }
+  details.year-entry summary .plus{
+    font-family:'Karla', sans-serif;
+    font-weight:700;
+    color:var(--amber-dark);
+    flex:none;
+    transition:transform .2s ease;
+  }
+  details.year-entry[open] summary .plus{transform:rotate(45deg);}
+  details.year-entry .entry-body{
+    margin-top:14px;
+    padding-top:14px;
+    border-top:1px solid var(--sage-deep);
+  }
+  details.year-entry .entry-body ul{margin:0; padding-left:20px;}
+  details.year-entry .entry-body li{margin-bottom:7px; color:var(--ink);}
+  .remembrance{
+    margin-top:16px;
+    padding:14px 16px;
+    background:var(--sage);
+    border-radius:var(--radius-md);
+    color:var(--ink-soft);
+    font-style:italic;
+    font-size:0.94rem;
+  }
+
+  /* ---------- Kontaktai (dark band) ---------- */
+  .contact-grid{
+    display:grid;
+    grid-template-columns:1.1fr 1fr;
+    gap:32px;
+  }
+  @media (max-width:680px){.contact-grid{grid-template-columns:1fr;}}
+  .contact-panel{
+    background:rgba(255,255,255,0.06);
+    border-radius:var(--radius-lg);
+    padding:26px 28px;
+  }
+  .contact-panel h3{color:#f7f4e7; font-size:1.02rem; margin-bottom:14px;}
+  .board-list{list-style:none; margin:0; padding:0;}
+  .board-list li{
+    padding:10px 0;
+    border-bottom:1px solid rgba(255,255,255,0.1);
+    font-size:0.96rem;
+    color:#dbe3cc;
+  }
+  .board-list li:last-child{border-bottom:none;}
+  .board-list li.chair{font-weight:700; color:#f7f4e7;}
+  .contact-channels dt{font-size:0.8rem; color:#a9b59a; margin-top:14px;}
+  .contact-channels dt:first-child{margin-top:0;}
+  .contact-channels dd{margin:3px 0 0; font-weight:600; color:#f2efe0;}
+  .contact-channels dd a{color:#f2efe0;}
+
+  /* ---------- Footer ---------- */
+  footer{
+    background:var(--forest-deeper);
+    color:#9fab92;
+    padding:36px 0 26px;
+    font-size:0.88rem;
+  }
+  footer .wrap{display:flex; flex-wrap:wrap; justify-content:space-between; gap:20px;}
+  footer a{color:#d9dfc8;}
+  footer strong{color:#f2f0e1;}
+  .disclaimer{
+    max-width:1120px;
+    margin:24px auto 0;
+    padding:16px 24px 0;
+    border-top:1px solid rgba(255,255,255,0.08);
+    color:#7d8a70;
+    font-size:0.82rem;
+  }
+
+  /* ---------- Admin ---------- */
+  .admin-fab{
+    position:fixed;
+    bottom:22px; right:22px;
+    width:52px; height:52px;
+    border-radius:50%;
+    background:var(--forest-dark);
+    color:#f2f0e1;
+    border:none;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 12px 28px -10px rgba(0,0,0,0.5);
+    cursor:pointer;
+    text-decoration:none;
+    z-index:80;
+  }
+  .admin-fab:hover{background:var(--amber-dark);}
+  .admin-overlay{
+    position:fixed; inset:0;
+    background:rgba(21,36,18,0.55);
+    display:none;
+    align-items:center; justify-content:center;
+    padding:20px;
+    z-index:90;
+  }
+  .admin-overlay.open{display:flex;}
+  .admin-modal{
+    background:var(--card);
+    border-radius:var(--radius-lg);
+    padding:30px 28px 26px;
+    max-width:380px; width:100%;
+    box-shadow:0 30px 70px -20px rgba(0,0,0,0.45);
+    position:relative;
+  }
+  .admin-modal h3{font-size:1.15rem; margin-bottom:4px;}
+  .admin-modal .small{font-size:0.82rem; color:var(--ink-soft); margin:0 0 16px;}
+  .admin-modal label{display:block; font-size:0.84rem; color:var(--ink-soft); margin:12px 0 5px;}
+  .admin-modal input{
+    width:100%; padding:10px 12px;
+    border:1px solid var(--sage-deep); border-radius:10px;
+    font-family:inherit; font-size:0.95rem; background:#fff; color:var(--ink);
+  }
+  .admin-modal .btn-row{display:flex; gap:10px; margin-top:20px;}
+  .admin-modal button.primary{
+    background:var(--forest); color:#fff; border:none;
+    padding:10px 20px; border-radius:var(--radius-pill);
+    font-weight:700; cursor:pointer; font-size:0.9rem;
+  }
+  .admin-modal button.primary:hover{background:var(--forest-dark);}
+  .admin-modal button.ghost{
+    background:transparent; border:1px solid var(--sage-deep);
+    padding:10px 20px; border-radius:var(--radius-pill);
+    cursor:pointer; color:var(--ink-soft); font-size:0.9rem;
+  }
+  .admin-modal .close-x{
+    position:absolute; top:14px; right:16px;
+    background:none; border:none; font-size:1.3rem;
+    line-height:1; cursor:pointer; color:var(--ink-soft);
+    padding:4px;
+  }
+  .admin-error{color:var(--rust); font-size:0.85rem; margin-top:10px; display:none;}
+  .admin-note{
+    font-size:0.76rem; color:var(--ink-soft);
+    margin-top:18px; padding-top:14px;
+    border-top:1px solid var(--sage-deep);
+    line-height:1.5;
+  }
+  .admin-list{list-style:none; margin:10px 0 0; padding:0;}
+  .admin-list li{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:8px 0; border-bottom:1px solid var(--sage-deep);
+    font-size:0.9rem;
+  }
+  .admin-list .you-tag{font-size:0.72rem; color:var(--moss); font-weight:700;}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-bar">
+    <svg class="mark" width="44" height="44" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M6 30 C6 18, 14 9, 23 9 C32 9, 40 18, 40 30 L40 33 C40 35 38 36 36 35 L32 33 L29 36 L25 33 L21 36 L17 33 L13 35 C11 36 9 35 9 33 Z" fill="#f2f0e1" opacity="0.95"/>
+      <circle cx="30" cy="20" r="2.4" fill="#2f4a2c"/>
+      <circle cx="13" cy="12" r="2.6" fill="#c98b34"/>
+    </svg>
+    <div>
+      <p class="header-title">Sodininkų bendrija „Šernai“</p>
+      <p class="header-sub">Žiaukų k., Priekulės sen., Klaipėdos r. sav.</p>
+    </div>
+  </div>
+  <nav class="site-nav" aria-label="Pagrindinė navigacija">
+    <ul>
+      <li><a href="#pradzia">Naujienos</a></li>
+      <li><a href="#pranesimai">Aktualu dabar</a></li>
+      <li><a href="#mokesciai">Mokesčiai</a></li>
+      <li><a href="#susirinkimai">Susirinkimai</a></li>
+      <li><a href="#dokumentai">Dokumentai</a></li>
+      <li><a href="#ankstesni">Archyvas</a></li>
+      <li><a href="#kontaktai">Kontaktai</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+
+  <section id="pradzia" class="hero">
+    <div class="hero-blob"></div>
+    <div class="hero-ring"></div>
+    <div class="wrap hero-grid">
+      <div>
+        <span class="tag tag--amber" id="dSeasonTag">2026 m. sezonas</span>
+        <h1 id="dHeroTitle">Laistymo sezonas <em>jau prasidėjęs</em></h1>
+        <p class="lede" id="dHeroLede">Vanduo laistymui tiekiamas pagal savaitės grafiką. Lietingomis dienomis arba įvykus gedimui vanduo neteikiamas — apie tai atskirai neinformuojama.</p>
+        <p class="hero-note">Draudžiama palikti atsuktus čiaupus savo sklypuose.</p>
+      </div>
+      <div class="schedule-card">
+        <h3>Vandens tiekimo grafikas</h3>
+        <table class="schedule">
+          <thead><tr id="dScheduleHead"></tr></thead>
+          <tbody><tr id="dScheduleBody"></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="pranesimai" class="band band--sage">
+    <div class="wrap">
+      <h2>Aktualu dabar</h2>
+      <p class="section-lede">Naujausi valdybos pranešimai bendrijos nariams ir gyventojams.</p>
+
+      <div class="notice-grid" id="dNoticeGrid">
+
+        <article class="notice">
+          <span class="tag tag--forest">Susirinkimas</span>
+          <span class="date-tag">2026-04-11, 11:00</span>
+          <h3>Šaukiamas ataskaitinis narių susirinkimas</h3>
+          <p>Vyks bendrijos buveinėje, Aušros al. 2, Žiaukų k. Nariai registruojami nuo 10 val. — būtina turėti asmens dokumentą ir nario teises patvirtinantį dokumentą.</p>
+          <ol>
+            <li>Revizijos komisijos išvados apie 2025 m. finansinę veiklą</li>
+            <li>Valdybos ataskaita apie 2025 m. veiklą</li>
+            <li>2025 m. pajamų ir sąnaudų svarstymas bei tvirtinimas</li>
+            <li>Bendrijos įstatų keitimas</li>
+            <li>Vandens siurblinės renovacija</li>
+            <li>Revizijos komisijos nario rinkimai</li>
+            <li>Kiti klausimai</li>
+          </ol>
+          <p class="meta">Susirinkimui neįvykus, pakartotinis — <strong>2026-04-25, 11:00</strong>. Su medžiaga galima susipažinti buveinėje šeštadieniais 10–14 val. Informacija tel. 8-646-92112.</p>
+        </article>
+
+        <article class="notice">
+          <span class="tag tag--amber">Atliekos</span>
+          <span class="date-tag">2026 m.</span>
+          <h3>Komunalinių atliekų išvežimo grafikas</h3>
+          <p>Šių metų išvežimo datos ir dienos pateiktos oficialiame grafike:</p>
+          <img src="https://sbsernai.weebly.com/uploads/3/7/1/5/3715819/editor/grafikas.jpg?1768632303" alt="2026 m. komunalinių atliekų išvežimo grafikas" loading="lazy">
+        </article>
+
+        <article class="notice">
+          <span class="tag tag--rust">Mokesčiai</span>
+          <span class="date-tag">Nuolat</span>
+          <h3>Mokestinių lapų atsiėmimas</h3>
+          <p>Mokestinius lapus galima atsiimti bendrijos būstinėje, Aušros al. 2:</p>
+          <ul>
+            <li>Antradieniais ir ketvirtadieniais, 9–13 val.</li>
+            <li>Šeštadieniais, 9–14 val.</li>
+          </ul>
+          <p class="meta">Kas antrą šeštadienį būstinėje budi buhalterė — galite atvykti su klausimais dėl mokėjimų.</p>
+        </article>
+
+        <article class="notice">
+          <span class="tag tag--moss">Parama</span>
+          <span class="date-tag">Kasmet</span>
+          <h3>Skirkite 1,2 % gyventojų pajamų mokesčio</h3>
+          <p>Parama padeda bendrijai nuveikti daugiau. Norint paskirti:</p>
+          <ol>
+            <li>Prisijunkite prie Elektroninio deklaravimo sistemos (EDS)</li>
+            <li>Pasirinkite „Pildyti formą“ ir susiraskite formą FR0512</li>
+            <li>Paramos gavėjo grafoje įrašykite SB „Šernai“ kodą <strong>163672133</strong></li>
+            <li>Pateikite prašymą</li>
+          </ol>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="mokesciai" class="band band--dark">
+    <div class="ring" style="width:560px;height:560px; top:-220px; left:-200px;"></div>
+    <div class="ring" style="width:380px;height:380px; top:-100px; left:-100px;"></div>
+    <div class="wrap">
+      <h2>Mokesčiai ir atsiskaitymas</h2>
+      <p class="section-lede">Mokėti galima šeštadieniais bendrijos būstinėje arba pavedimu — nurodant sklypo numerį ir adresą.</p>
+
+      <div class="ledger-card">
+        <dl class="ledger-grid">
+          <div>
+            <div class="ledger-item">
+              <dt>Gavėjas</dt>
+              <dd>Klaipėdos rajono sodininkų bendrija „Šernai“</dd>
+            </div>
+            <div class="ledger-item">
+              <dt>Banko sąskaita (Swedbank)</dt>
+              <dd>LT05 7300 0100 0232 7966</dd>
+            </div>
+          </div>
+          <div>
+            <div class="ledger-item">
+              <dt>Juridinio asmens kodas</dt>
+              <dd>163672133</dd>
+            </div>
+            <div class="ledger-item">
+              <dt>Mokėjimo paskirtyje būtina nurodyti</dt>
+              <dd>Sklypo numerį ir adresą</dd>
+            </div>
+          </div>
+        </dl>
+
+        <div class="rate-list">
+          <div class="rate-chip"><span class="label">Sodininko mokestis</span><span class="value">9 €/aras</span></div>
+          <div class="rate-chip"><span class="label">Vanduo laistymui</span><span class="value">15 €/sklypas</span></div>
+          <div class="rate-chip"><span class="label">Tikslinis mokestis</span><span class="value">10 €/sklypas</span></div>
+        </div>
+        <p class="fine-print">Tarifai patvirtinti 2023 m. balandžio 15 d. narių susirinkime; dėl aktualių metų sumų teiraukitės buhalterės arba tikrinkite mokestiniame lape.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="susirinkimai" class="band band--cream">
+    <div class="wrap">
+      <h2>Susirinkimų medžiaga</h2>
+      <p class="section-lede">Ataskaitinių ir rinkiminių susirinkimų protokolai bei medžiaga pagal metus.</p>
+
+      <div class="year-grid">
+        <a class="year-chip" href="https://sbsernai.weebly.com/2025-04-05.html"><span class="yr">2025</span><span class="lbl">balandžio 5</span></a>
+        <a class="year-chip" href="https://sbsernai.weebly.com/2022-04-09.html"><span class="yr">2022</span><span class="lbl">balandžio 9</span></a>
+        <a class="year-chip" href="https://sbsernai.weebly.com/2019-04-13.html"><span class="yr">2019</span><span class="lbl">balandžio 13</span></a>
+        <a class="year-chip" href="https://sbsernai.weebly.com/2018-04-14.html"><span class="yr">2018</span><span class="lbl">balandžio 14</span></a>
+        <a class="year-chip" href="https://sbsernai.weebly.com/2017-04-22.html"><span class="yr">2017</span><span class="lbl">balandžio 22</span></a>
+        <a class="year-chip" href="https://sbsernai.weebly.com/2016-04-23.html"><span class="yr">2016</span><span class="lbl">balandžio 23</span></a>
+        <a class="year-chip" href="https://sbsernai.weebly.com/2015-04-18.html"><span class="yr">2015</span><span class="lbl">balandžio 18</span></a>
+        <a class="year-chip" href="https://sbsernai.weebly.com/2014-04-12.html"><span class="yr">2014</span><span class="lbl">balandžio 12</span></a>
+        <a class="year-chip" href="https://sbsernai.weebly.com/2013-04-27.html"><span class="yr">2013</span><span class="lbl">balandžio 27</span></a>
+        <a class="year-chip" href="https://sbsernai.weebly.com/2012-04-21.html"><span class="yr">2012</span><span class="lbl">balandžio 21</span></a>
+        <a class="year-chip" href="https://sbsernai.weebly.com/2011-04-09.html"><span class="yr">2011</span><span class="lbl">balandžio 9</span></a>
+        <a class="year-chip" href="https://sbsernai.weebly.com/2010-11-13.html"><span class="yr">2010</span><span class="lbl">lapkričio 13</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section id="dokumentai" class="band band--sage">
+    <div class="wrap">
+      <h2>Žemėlapis ir vidaus tvarkos taisyklės</h2>
+      <p class="section-lede">Bendrijos teritorijos schema ir galiojančios vidaus tvarkos taisyklės — peržiūrai tiesiai svetainėje.</p>
+
+      <div class="doc-grid">
+        <div class="doc-card">
+          <h3>Teritorijos schema</h3>
+          <p>Gatvių planas ir sklypų išdėstymas bendrijos teritorijoje.</p>
+          <div class="thumbs">
+            <img src="https://sbsernai.weebly.com/uploads/3/7/1/5/3715819/scan0019.jpg" alt="Gatvių planas 1" loading="lazy">
+            <img src="https://sbsernai.weebly.com/uploads/3/7/1/5/3715819/scan0020.jpg" alt="Gatvių planas 2" loading="lazy">
+            <img src="https://sbsernai.weebly.com/uploads/3/7/1/5/3715819/scan0022.jpg" alt="Gatvių planas 3" loading="lazy">
+          </div>
+          <iframe class="pdf-frame" src="https://sbsernai.weebly.com/uploads/3/7/1/5/3715819/teritorijos_schema.pdf" title="Teritorijos schema PDF" loading="lazy"></iframe>
+          <span class="doc-hint">Jei PDF neatsidaro tiesiogiai, dokumentas taip pat pasiekiamas per naršyklės vaizdą aukščiau.</span>
+        </div>
+
+        <div class="doc-card">
+          <h3>Vidaus tvarkos taisyklės</h3>
+          <p>Pilnas taisyklių dokumentas (9,3 MB), peržiūrimas puslapis po puslapio.</p>
+          <iframe class="pdf-frame" src="https://sbsernai.weebly.com/uploads/3/7/1/5/3715819/vidaus_tvarkos_taisykls.pdf" title="Vidaus tvarkos taisyklės PDF" loading="lazy"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="ankstesni" class="band band--cream">
+    <div class="wrap">
+      <h2>Ankstesni pranešimai</h2>
+      <p class="section-lede">Senesni valdybos skelbimai, sugrupuoti pagal metus.</p>
+
+      <details class="year-entry">
+        <summary><span>2025</span><span class="teaser">atostogos, sezono pabaiga, mokestiniai lapai</span><span class="plus">+</span></summary>
+        <div class="entry-body">
+          <ul>
+            <li>Nuo 2025-10-01 iki 10-28 bendrijos pirmininkas atostogauja — skambinti tik būtinais atvejais.</li>
+            <li>Laistymo sezonas oficialiai baigtas rugsėjo 14 d.; nuo rugsėjo 15 d. santechnikai tikrino trasas, prašyta užtikrinti laisvą priėjimą prie vamzdžių.</li>
+            <li>Galiojo 2025 m. vandens tiekimo grafikas (antradieniais ir ketvirtadieniais 10–13 val., trečiadieniais ir penktadieniais 17–20 val., šeštadieniais 10–13 val., sekmadieniais 10–12 val.).</li>
+          </ul>
+          <p class="remembrance">Netekome ilgametės Sodininkų bendrijos „Šernai“ pirmininkės Dainos Baronienės. Reiškiame nuoširdžią užuojautą jos šeimai, artimiesiems ir draugams.</p>
+        </div>
+      </details>
+
+      <details class="year-entry">
+        <summary><span>2024</span><span class="teaser">neeilinis susirinkimas, mokėjimo kvitai</span><span class="plus">+</span></summary>
+        <div class="entry-body">
+          <ul>
+            <li>2024-06-29 šauktas neeilinis narių susirinkimas: elektros oro linijų naikinimo projektas, nuovažos leidimas iš Agrastų g. į Čiurlių al., baudos už apleistus sklypus. Pakartotinis susirinkimas — 2024-07-20.</li>
+            <li>Suformuoti mokėjimo kvitai, atsiimami pas pirmininką arba siunčiami el. paštu; raginta apmokėti iki metų pabaigos.</li>
+            <li>Galiojo 2024 m. vandens tiekimo grafikas pagal savaitės dienas (II–VII), santechniko tel. 8-673-34285.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="year-entry">
+        <summary><span>2023</span><span class="teaser">metinis susirinkimas, patvirtinti tarifai</span><span class="plus">+</span></summary>
+        <div class="entry-body">
+          <ul>
+            <li>2023-04-15, 11:00 — bendrijos narių metinis ataskaitinis susirinkimas buveinėje, Aušros al. 2.</li>
+            <li>Tame susirinkime patvirtinti 2023 m. tarifai: sodininko mokestis 9 €/aras, vanduo laistymui 15 €/sklypas, tikslinis mokestis 10 €/sklypas.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="year-entry">
+        <summary><span>2020–2022</span><span class="teaser">karantinas, talka, didelių atliekų grafikas</span><span class="plus">+</span></summary>
+        <div class="entry-body">
+          <ul>
+            <li>Dėl karantino apribojimų 2021 m. visuotinis narių susirinkimas atidėtas iki sąlygų pasikeitimo.</li>
+            <li>Kviesta pasirašyti dėl pėsčiųjų / dviračių tako projekto per mišką link SB „Minija“, „Gilė“ ir Rokų gyvenvietės (~1,2 km).</li>
+            <li>Nuo 2021-10-01 mokesčiai bendrijos būstinėje priimami tik šeštadieniais, 10–14 val.</li>
+            <li>2020 m. stambiagabaričių atliekų konteineriai statyti balandžio 25 d., gegužės 16 d., birželio 27 d. ir rugpjūčio 8 d.; bendrijos talka vyko birželio 27 d.</li>
+            <li>2020-09-20 nutrauktas vandens tiekimas laistymui sezono pabaigoje.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="year-entry">
+        <summary><span>2017–2019</span><span class="teaser">konteinerių registracija, dujofikavimas</span><span class="plus">+</span></summary>
+        <div class="entry-body">
+          <ul>
+            <li>Nuo 2019-08-06 galiojo naujas vandens tiekimo laistymui grafikas savaitės dienomis.</li>
+            <li>Priekulės seniūnija informavo apie galimybę registruotis žaliųjų atliekų kompostavimo konteineriams.</li>
+            <li>2018 m. pratęstas terminas pildyti paraiškas dėl dujofikavimo.</li>
+            <li>Priminta nuolatiniams gyventojams registruoti komunalinių atliekų konteinerių numerius (formatas „55-L-…“), kad „Ekonovus“ juos aptarnautų.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="year-entry">
+        <summary><span>2014</span><span class="teaser">Derliaus šventė</span><span class="plus">+</span></summary>
+        <div class="entry-body">
+          <ul>
+            <li>Nuotraukos iš 2014 m. Derliaus šventės — <a href="https://www.facebook.com/media/set/?set=a.1470044656615363.1073741831.1469988873287608&type=3">bendrijos Facebook paskyroje</a>.</li>
+          </ul>
+        </div>
+      </details>
+
+    </div>
+  </section>
+
+  <section id="kontaktai" class="band band--dark">
+    <div class="ring" style="width:480px;height:480px; bottom:-220px; right:-160px;"></div>
+    <div class="wrap">
+      <h2>Kontaktai</h2>
+      <div class="contact-grid">
+        <div class="contact-panel">
+          <h3>Valdyba</h3>
+          <ul class="board-list">
+            <li class="chair">Antanas Levickas — valdybos pirmininkas · 8-646-92112</li>
+            <li>Vaida Levickienė</li>
+            <li>Edita Bertašienė</li>
+            <li>Sigita Skyrienė</li>
+            <li>Jūratė Malejeva</li>
+          </ul>
+        </div>
+        <div class="contact-panel">
+          <dl class="contact-channels">
+            <dt>El. paštas</dt>
+            <dd><a href="mailto:sernai.valdyba@gmail.com">sernai.valdyba@gmail.com</a></dd>
+            <dt>Facebook</dt>
+            <dd><a href="https://www.facebook.com/SodininkuBendrijaSernai">facebook.com/SodininkuBendrijaSernai</a></dd>
+            <dt>Buhalterė</dt>
+            <dd>8-673-34280</dd>
+            <dt>Santechnikas</dt>
+            <dd>8-673-34285</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <strong>Sodininkų bendrija „Šernai“</strong><br>
+      Aušros al. 2, Žiaukų k., Priekulės sen., Klaipėdos r. sav.
+    </div>
+    <div>
+      <a href="#pradzia">Naujienos</a><br>
+      <a href="#susirinkimai">Susirinkimų medžiaga</a><br>
+      <a href="#kontaktai">Kontaktai</a>
+    </div>
+  </div>
+  <p class="disclaimer">
+    Tai — neoficialus SB „Šernai“ svetainės (sbsernai.weebly.com) dizaino atnaujinimo pavyzdys, parengtas pagal viešai skelbtą svetainės turinį. Dalis pranešimų datuoti praeityje, todėl aktualiausią informaciją visada tikrinkite <a href="https://sbsernai.weebly.com/">oficialioje svetainėje</a> arba paskambinę valdybai.
+  </p>
+</footer>
+
+<a class="admin-fab" href="admin/" title="Turinio valdymas (Decap CMS)" aria-label="Turinio valdymas">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <rect x="5" y="11" width="14" height="9" rx="2" stroke="currentColor" stroke-width="1.8"/>
+    <path d="M8 11V8a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+  </svg>
+</a>
+
+<script>
+(function(){
+  // Užkrauna redaguojamą turinį iš data/content.json (Decap CMS redaguoja būtent šį failą).
+  // Jei failas nepasiekiamas (pvz., atidarius index.html tiesiog dvigubu paspaudimu, be serverio),
+  // puslapyje lieka jau įrašytas atsarginis turinys žemiau.
+  fetch('data/content.json').then(function(r){
+    if(!r.ok) throw new Error('no content.json');
+    return r.json();
+  }).then(renderContent).catch(function(){ /* naudoti atsarginį statinį turinį */ });
+
+  function esc(s){
+    var d = document.createElement('div');
+    d.textContent = s == null ? '' : String(s);
+    return d.innerHTML;
+  }
+
+  function renderContent(data){
+    var seasonTag = document.getElementById('dSeasonTag');
+    var heroTitle = document.getElementById('dHeroTitle');
+    var heroLede = document.getElementById('dHeroLede');
+    var schedHead = document.getElementById('dScheduleHead');
+    var schedBody = document.getElementById('dScheduleBody');
+    var grid = document.getElementById('dNoticeGrid');
+
+    if(data.season_tag && seasonTag) seasonTag.textContent = data.season_tag;
+    if(data.hero_title && heroTitle){
+      heroTitle.innerHTML = esc(data.hero_title) + ' <em>' + esc(data.hero_title_accent || '') + '</em>';
+    }
+    if(data.hero_lede && heroLede) heroLede.textContent = data.hero_lede;
+
+    if(Array.isArray(data.schedule) && data.schedule.length && schedHead && schedBody){
+      schedHead.innerHTML = data.schedule.map(function(d){
+        return '<th scope="col">' + esc(d.day) + '</th>';
+      }).join('');
+      schedBody.innerHTML = data.schedule.map(function(d){
+        var isOff = !d.hours || d.hours === '—' || d.hours.toLowerCase() === 'netiekiama';
+        return '<td class="' + (isOff ? 'off' : 'hours') + '">' + esc(d.hours) + '</td>';
+      }).join('');
+    }
+
+    if(Array.isArray(data.notices) && grid){
+      grid.innerHTML = data.notices.map(function(n){
+        var html = '<article class="notice">';
+        html += '<span class="tag tag--' + esc(n.tag_style || 'forest') + '">' + esc(n.tag_label) + '</span>';
+        html += '<span class="date-tag">' + esc(n.date) + '</span>';
+        html += '<h3>' + esc(n.title) + '</h3>';
+        if(n.body) html += '<p>' + esc(n.body) + '</p>';
+        if(Array.isArray(n.list) && n.list.length){
+          var tag = n.list_style === 'ol' ? 'ol' : 'ul';
+          html += '<' + tag + '>' + n.list.map(function(li){
+            return '<li>' + esc(typeof li === 'string' ? li : li.item) + '</li>';
+          }).join('') + '</' + tag + '>';
+        }
+        if(n.image) html += '<img src="' + esc(n.image) + '" alt="' + esc(n.title) + '" loading="lazy">';
+        if(n.meta) html += '<p class="meta">' + esc(n.meta) + '</p>';
+        html += '</article>';
+        return html;
+      }).join('');
+    }
+  }
+})();
+</script>
+
+</body>
+</html>
