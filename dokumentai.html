@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sodininkų bendrija „Šernai“ — Dokumentai</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="header-bar">
+    <svg class="mark" width="44" height="44" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <clipPath id="logoClip"><circle cx="50" cy="50" r="46"/></clipPath>
+        <linearGradient id="logoSky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#f0862f"/>
+          <stop offset="100%" stop-color="#f7b35e"/>
+        </linearGradient>
+      </defs>
+      <circle cx="50" cy="50" r="48" fill="#ffffff" stroke="#2f4a2c" stroke-width="4"/>
+      <g clip-path="url(#logoClip)">
+        <rect x="0" y="0" width="100" height="60" fill="url(#logoSky)"/>
+        <path d="M-6 18 Q18 10 44 19" stroke="#fff" stroke-width="2.6" fill="none" opacity="0.85" stroke-linecap="round"/>
+        <path d="M-6 30 Q26 19 56 32" stroke="#fff" stroke-width="2.6" fill="none" opacity="0.7" stroke-linecap="round"/>
+        <path d="M48 33 Q76 22 106 30" stroke="#fff" stroke-width="2.6" fill="none" opacity="0.7" stroke-linecap="round"/>
+        <path d="M-6 60 Q26 42 56 60 Q78 47 106 58 L106 106 L-6 106 Z" fill="#4a6d43"/>
+        <path d="M-6 68 Q30 54 60 68 Q82 57 106 67 L106 106 L-6 106 Z" fill="#2f4a2c"/>
+        <g transform="translate(50,60)">
+          <line x1="0" y1="0" x2="0" y2="-24" stroke="#1e3320" stroke-width="3.2" stroke-linecap="round"/>
+          <path d="M0 -24 C 3 -30 11 -30 14 -22 C 11 -16 3 -16 0 -18 Z" fill="#3f5d3a"/>
+          <path d="M0 -24 C -3 -30 -11 -30 -14 -22 C -11 -16 -3 -16 0 -18 Z" fill="#3f5d3a"/>
+          <path d="M0 -12 C -8 -15 -11 -6 0 -3 C 9 -6 6 -15 0 -12 Z" fill="#6f8f5f"/>
+        </g>
+      </g>
+    </svg>
+    <div>
+      <p class="header-title">Sodininkų bendrija „Šernai“</p>
+      <p class="header-sub">Žiaukų k., Priekulės sen., Klaipėdos r. sav.</p>
+    </div>
+  </div>
+  <nav class="site-nav" aria-label="Pagrindinė navigacija">
+    <ul>
+      <li><a href="index.html">Naujienos</a></li>
+      <li><a href="aktualu.html">Aktualu dabar</a></li>
+      <li><a href="mokesciai.html">Mokesčiai</a></li>
+      <li><a href="susirinkimai.html">Susirinkimai</a></li>
+      <li><a href="dokumentai.html">Dokumentai</a></li>
+      <li><a href="kontaktai.html">Kontaktai</a></li>
+    </ul>
+  </nav>
+</header>
+
+<div class="latest-bar" id="latestBar">
+  <div class="wrap latest-bar-inner">
+    <span class="latest-label">Naujausia informacija</span>
+    <a href="aktualu.html" class="latest-link" id="latestLink">
+      <span id="latestLinkTitle">Šaukiamas ataskaitinis narių susirinkimas</span>
+      <span class="latest-date" id="latestLinkDate">2026-04-11</span>
+    </a>
+  </div>
+</div>
+
+<main>
+
+  <section id="dokumentai" class="band band--sage">
+    <div class="wrap">
+      <h2>Žemėlapis ir vidaus tvarkos taisyklės</h2>
+      <p class="section-lede">Bendrijos teritorijos schema ir galiojančios vidaus tvarkos taisyklės — peržiūrai tiesiai svetainėje.</p>
+
+      <div class="doc-grid">
+        <div class="doc-card">
+          <h3>Teritorijos schema</h3>
+          <p>Gatvių planas ir sklypų išdėstymas bendrijos teritorijoje.</p>
+          <div class="thumbs">
+            <img class="zoomable" src="data/uploads/zemelapis-1.jpg" alt="Žiaukų k. gatvių išdėstymo planas M 1:7500" loading="lazy">
+            <img class="zoomable" src="data/uploads/zemelapis-2.jpg" alt="Žiaukų k. gatvių išdėstymo planas M 1:5000" loading="lazy">
+            <img class="zoomable" src="data/uploads/zemelapis-3.jpg" alt="Žiaukų k. gatvių išdėstymo planas M 1:3500" loading="lazy">
+          </div>
+          <iframe class="pdf-frame" src="documents/teritorijos-schema.pdf" title="Teritorijos schema PDF" loading="lazy"></iframe>
+          <span class="doc-hint">Jei PDF neatsidaro tiesiogiai, dokumentas taip pat pasiekiamas per naršyklės vaizdą aukščiau.</span>
+        </div>
+      </div>
+
+      <div class="rules-block">
+        <h3>Vidaus tvarkos taisyklės</h3>
+        <p class="section-lede" style="margin-bottom:18px;">Patvirtinta bendrijos narių pakartotiniame ataskaitiniame-rinkiminiame susirinkime 2013-04-27 (protokolas Nr. 10).</p>
+
+        <details class="year-entry" open>
+          <summary><span>I. Bendroji dalis</span><span class="teaser">1–9 p.</span><span class="plus">+</span></summary>
+          <div class="entry-body">
+            <ol>
+              <li>Sodininkų bendrija yra savarankiškas, pelno nesiekiantis fizinių asmenų susivienijimas, turintis juridinio asmens teises, kurio tikslas – plėtoti mėgėjišką sodininkystę, daržininkystę, gėlininkystę, bitininkystę ir kitą sodininkystės veiklą, vienijantis žemės sklypų savininkus ir nuomininkus bei valdantis bendrijos teritorijoje esantį bendrijai nuosavybės teise priklausantį turtą.</li>
+              <li>Bendrijos veiklai vadovauja bendrijos narių visuotinis susirinkimas, o laikotarpiu tarp susirinkimų – bendrijos valdyba.</li>
+              <li>Sodininkų bendrijoje „Šernai“ sudaryta 11 grandžių. Grandims vadovauja grandies susirinkime išrinkta valdyba, iš kurios narių išrinktas grandies seniūnas. Grandies seniūnas atstovauja grandžiai išplėstiniuose bendrijos valdybos posėdžiuose ir supažindina grandies narius su priimtais nutarimais.</li>
+              <li>Bendrijos vidaus tvarkos taisyklės parengtos vadovaujantis Lietuvos Respublikos Sodininkų bendrijų įstatymu (2003 m. gruodžio 18 d. Nr. IX-1934), kitais teisės aktais.</li>
+              <li>Sodininkų bendrija turi nustatytą Juridinio asmens kodą – 163672133. Sodininkų bendrijos įstatai registruojami Valstybinės registrų centro įmonės Klaipėdos filiale. Bendrijos valdyba ir kiekvienas sodininkas savo veikloje vadovaujasi LR Sodininkų bendrijų įstatymu, bendrijos įstatais ir šiomis Vidaus tvarkos taisyklėmis.</li>
+              <li>Bendrijos valdyba pagal bendrijos žemės sklypo planą organizuoja sodo aikštelių, kelių, takų ir kitų projekte numatytų objektų atžymėjimus natūroje ir užtikrina, kad šių ribų būtų laikomasi. Mėgėjiško sodo teritorija priskiriama žemės ūkio paskirties žemei.</li>
+              <li>Bendrija privalo rūpintis natūralia gamtine aplinka, laikytis įstatymų nustatytų aplinkos apsaugos reikalavimų, saugoti ir prižiūrėti bendrojo naudojimo plotuose augančius miškus, medžius ir kitą augaliją, vandens telkinius, atskirus gamtos objektus, globoti naudingąją gyvūniją.</li>
+              <li>Siekiant įgyvendinti savo tikslus kultūrinėje veikloje, bendrijos valdyba organizuoja bendrijos sklypų apžiūras, parodas, derliaus šventes, dalyvauja Lietuvos sodininkų draugijos ir miestų (rajonų) susivienijimų rengiamose parodose, mugėse, konkursuose ir kituose renginiuose.</li>
+              <li>Bendrijos valdyba prie įvažiavimo į bendriją įrengia informacines skelbimų lentas, kuriose nurodo bendrijos teritorijos schemą, bendrijos pavadinimą, patikslintą teritorijos žemėtvarkos projektą ar kitą teritorijų planavimo dokumentą. Bendrojo naudojimo žemę bendrija gali nuomoti ar išsipirkti iš valstybės.</li>
+            </ol>
+          </div>
+        </details>
+
+        <details class="year-entry">
+          <summary><span>II. Ribos ir statiniai</span><span class="teaser">10–19 p.</span><span class="plus">+</span></summary>
+          <div class="entry-body">
+            <ol start="10">
+              <li>Kiekvienas sodininkas yra savininkas, išsipirkęs iš valstybės žemės sklypą, kuris yra įteisintas. Ribos tarp sodo kelių ir narių sklypų gali būti pažymimos negiliais grioveliais arba tvorele, žemaūgiais želdiniais. Sodininkas savo sklypą gali apverti dekoratyvine medine, iš vielos tinklo tvora arba karpoma gyvatvore. Svarbu, kad kaimynams nekristų pavėsis.</li>
+              <li>Medžius ir krūmus mėgėjiško sodo teritorijoje sodininkai tvarko ir prižiūri savo nuožiūra. Atskirti sklypą nuo kaimyninio sklypo gyvatvore per šių sklypų ribą galima turint rašytinį kaimyninio sklypo savininko sutikimą, o kai sklypas ribojasi su bendrojo naudojimo teritorija – rašytinį bendrijos valdybos ar pirmininko sutikimą. Sodo sklype medžiai ir krūmai sodinami laikantis šių reikalavimų:
+                <ol class="sub-list">
+                  <li>aukštaūgiai medžiai, aukštesni kaip 3 m, sodinami ne mažesniu kaip 3 m atstumu nuo sklypo ribos; šiaurinėje sklypo dalyje arčiau kaip 5 m nuo kaimyninio sklypo ribos – tik gavus rašytinį kaimyninio sklypo savininko sutikimą;</li>
+                  <li>žemaūgiai medžiai (iki 3 m aukščio) sodinami ne mažesniu kaip 2 m atstumu nuo sklypo ribos;</li>
+                  <li>krūmai sodinami ne mažesniu kaip 1 m atstumu nuo sklypo ribos;</li>
+                  <li>krūmų, dekoratyvinių bei kitų augalų neturi būti arčiau kaip 1 m nuo bendrijos teritorijos ribų tvoros;</li>
+                  <li>mažesniais atstumais sodiniai gali būti sodinami turint rašytinį kaimyninio sklypo savininko sutikimą.</li>
+                </ol>
+              </li>
+              <li>Gyvatvorės krūmai turi būti nuolat karpomi, jų aukštis – ne didesnis kaip 1–1,2 m.</li>
+              <li>Pertvarkyti sodo teritoriją ar jos dalį statant gyvenamąjį namą ar jo priklausinius, rekonstruoti pastatytą sodo namą į gyvenamąjį namą privaloma vadovaujantis LR aplinkos ministerijos 2002-03-19 patvirtintu reglamentu STR 1.07.03:1999.</li>
+              <li>Sodo sklype statiniai statomi laikantis šių reikalavimų:
+                <ol class="sub-list">
+                  <li>pastatai – ne mažesniu kaip 3 m, inžineriniai statiniai (išskyrus tvoras) – ne mažesniu kaip 1 m atstumu nuo sklypo ribos, kad nedarytų žalos kaimyniniam sklypui; mažesniu atstumu – turint rašytinį kaimyno arba valdybos/pirmininko sutikimą;</li>
+                  <li>tvoros tarp sklypų turi atitikti insoliacijos reikalavimus; kitokioms tvoroms – rašytinis kaimyno sutikimas; nuo bendrojo naudojimo teritorijos galima aklina tvora;</li>
+                  <li>tvorą ant sklypo ribos statyti galima turint rašytinį kaimyno arba valdybos/pirmininko sutikimą.</li>
+                </ol>
+              </li>
+              <li>Mėgėjiško sodo sklype Statybos įstatymo tvarka galima statyti ar rekonstruoti vieną vienbutį gyvenamąjį namą (ir priklausinius) arba vieną sodo namą (ir priklausinius), nekeičiant pagrindinės žemės naudojimo paskirties ir nepažeidžiant trečiųjų asmenų interesų.</li>
+              <li>Pastatai gali būti statomi, jei neviršijami šie rodikliai:
+                <ol class="sub-list">
+                  <li>sklypo užstatymo didžiausias tankumas – 30 proc.;</li>
+                  <li>gyvenamojo pastato ar sodo namo didžiausias aukštis – 8,5 m;</li>
+                  <li>priklausinio didžiausias aukštis – 6 m;</li>
+                  <li>nesudėtingo priklausinio didžiausias aukštis – 5 m.</li>
+                </ol>
+              </li>
+              <li>Projektuojant ir statant statinius, būtina išlaikyti šiuos atstumus:
+                <ol class="sub-list">
+                  <li>gyvenamas namas nuo gretimo sklypo ribos – ne arčiau kaip 3 m;</li>
+                  <li>gyvenamas namas nuo gatvės raudonosios linijos – ne arčiau kaip 5 m;</li>
+                  <li>ūkinis pastatas, garažas, šiltnamis – 2 m nuo sklypo ribos;</li>
+                  <li>lauko tualetas (ne ūkiniame pastate) – ne arčiau kaip 4 m nuo sklypo ribos; kiekviename sklype privalo būti nuotekų duobė su biologinėmis kvapų šalinimo priemonėmis.</li>
+                </ol>
+              </li>
+              <li>Sodo sklypai gali būti padalijami ar atskiriamos jų dalys, jeigu galima suprojektuoti ne mažesnius kaip 0,04 ha sklypus.</li>
+              <li>Sodo sklypai mėgėjiškos sodininkystės reikmėms gali būti sujungiami.</li>
+            </ol>
+          </div>
+        </details>
+
+        <details class="year-entry">
+          <summary><span>III. Tvarka ir prievolės</span><span class="teaser">20–35 p.</span><span class="plus">+</span></summary>
+          <div class="entry-body">
+            <ol start="20">
+              <li>Sodo sklypas turi būti tvarkomas laikantis agrotechnikos reikalavimų, racionaliai išnaudojant žemę ir derinant su aplinkos estetika.</li>
+              <li>Kiekviename sklype turi būti palaikoma švara, naikinamos piktžolės, kovojama su augalų ligomis ir kenkėjais. Nedirbamų sklypų šeimininkai, darantys žalą kaimynams, baudžiami įstatymų nustatyta tvarka. Prie bendrijos kelių draudžiama sodinti šaltalankius ir kitus plačiai šaknis skleidžiančius augalus.</li>
+              <li>Draudžiama išravėtas piktžoles ir kitas atliekas mesti ant kelių ar krauti už sodo ribos. Joms – kompostinė ar buitinių atliekų duobė sklypo nuošalesnėje vietoje, ne arčiau kaip 3 m nuo kaimyno ribos.</li>
+              <li>Neorganinės atliekos (plastmasė, stiklas, statybinės atliekos ir kt.) turi būti pastoviai išvežamos.</li>
+              <li>Atvežtas mėšlas, durpės ir kitos trąšos per 2–3 dienas sukompostuojamos arba įterpiamos į dirvą. Fekalines trąšas į sodą vežti draudžiama.</li>
+              <li>Bendrijos valdyba gali pavesti nariams kelių, pakelių, aikščių, tvorų, apsauginių juostų, medžių ir krūmų priežiūrą pagal jiems priskirtus plotus.</li>
+              <li>Šie darbai gali būti atliekami organizuojant talkas; visuotinis susirinkimas gali kasmet nustatyti privalomą talkose išdirbamų valandų skaičių.</li>
+              <li>Nedalyvavęs talkose ir neišdirbęs nustatyto valandų skaičiaus sodininkas privalo sumokėti bendrijai nustatytą sumą.</li>
+              <li>Balandžio–gegužės mėnesiais bendrija organizuoja talkas aplinkos ir priskirtų miško zonų tvarkymui 100 m atstumu; sistemingai gamtą teršiantys sodininkai gali būti baudžiami pasitelkus miškininkus, gamtosaugininkus.</li>
+              <li>Sodininkai privalo laiku mokėti nustatytus nario ir tikslinius mokesčius. Ne nariai atsiskaito pagal bendrijos sąskaitas. Įmokas patvirtinantys dokumentai saugomi 3 metus.</li>
+              <li>Už mokesčių nemokėjimą skaičiuojami delspinigiai, gali būti taikomos kitos poveikio priemonės, viešai skelbiami skolininkų sąrašai.</li>
+              <li>Nuo gegužės 15 d. iki rugsėjo 15 d. poilsio ir švenčių dienomis atliekas deginti draudžiama.</li>
+              <li>Visi nariai turi laikytis bendravimo normų, netrukdyti kaimynams dirbti ir ilsėtis.</li>
+              <li>Sodo ramybės laikas – nuo 23 val. iki 7 val.</li>
+              <li>Sode neleidžiama garsi muzika.</li>
+              <li>Kiekvienas savininkas privalo pažymėti savo sklypą suteiktu adreso numeriu.</li>
+            </ol>
+          </div>
+        </details>
+
+        <details class="year-entry">
+          <summary><span>IV. Gyvūnai</span><span class="teaser">36–38 p.</span><span class="plus">+</span></summary>
+          <div class="entry-body">
+            <ol start="36">
+              <li>Narys turi teisę laikyti paukščius, triušius, nutrijas, bites, ožkas, griežtai laikantis sanitarijos bei veterinarijos taisyklių ir nedarant žalos aplinkai ar kaimynams. Voljerai – ne arčiau kaip 4 m nuo kaimyninio sklypo ribos.</li>
+              <li>Palaidus šunis, vištas, žąsis mėgėjiškuose soduose laikyti draudžiama.</li>
+              <li>Nariai privalo globoti naudingus paukščius, įrengti inkilus, neteršti vandens telkinių, miškų ir žaliųjų plotų, nelaužyti eglišakių, nekirsti medžių bei krūmų, neskinti į Raudonąją knygą įtrauktų augalų. Kiekvieno pareiga – sudrausti gamtos pažeidėjus.</li>
+            </ol>
+          </div>
+        </details>
+
+        <details class="year-entry">
+          <summary><span>V. Transportas</span><span class="teaser">39–40 p.</span><span class="plus">+</span></summary>
+          <div class="entry-body">
+            <ol start="39">
+              <li>Transporto priemonės laikomos sodo sklype arba tam įrengtose aikštelėse. Laikyti jas sodo keliuose griežtai draudžiama.</li>
+              <li>Greitis sodo keliuose neturi viršyti 30 km/h. Sugadintus kelius ir įrenginius taiso kaltininkas. Kelio ženklus ir stovėjimo vietas parenka bendrijos valdyba.</li>
+            </ol>
+          </div>
+        </details>
+
+        <details class="year-entry">
+          <summary><span>VI. Nuosavybės perleidimas</span><span class="teaser">41 p.</span><span class="plus">+</span></summary>
+          <div class="entry-body">
+            <ol start="41">
+              <li>Parduodamas, dovanodamas ar kitaip perleisdamas sklypą, narys privalo informuoti valdybą ir sumokėti mokesčius. Prieš perleidimą būtina gauti bendrijos pažymą apie atsiskaitymą už prievoles – ji pateikiama notarui sudarant sandorį.</li>
+            </ol>
+          </div>
+        </details>
+
+        <details class="year-entry">
+          <summary><span>VII. Bendrijos ūkis</span><span class="teaser">42–52 p.</span><span class="plus">+</span></summary>
+          <div class="entry-body">
+            <ol start="42">
+              <li>Bendrojo naudojimo objektus bendrija valdo Civilinio kodekso, Sodininkų bendrijų įstatymo ir kitų įstatymų nustatyta tvarka.</li>
+              <li>Vandens laistymo magistralinius vamzdynus remontuoja ir prižiūri bendrijos valdyba; grandžių teritorijose – grandžių tarybos, seniūnai ir kiekvienas sodininkas. Turi būti laisvas priėjimas prie vamzdynų (po 0,5 m iš abiejų pusių).</li>
+              <li>Pagrindinių kelių (gatvių, alėjų) priežiūra – bendrijos valdybos, mažų gatvelių (takų) – grandžių tarybų, seniūnų ir kiekvieno sodininko rūpestis.</li>
+              <li>Nesilaikantiems įstatų, taisyklių ar susirinkimo/valdybos nutarimų taikomos poveikio priemonės: baudos ir kitos priemonės pagal galiojančius įstatymus.</li>
+              <li>Valdyba atsiskaito nariams susirinkime apie įvykdytus darbus ir panaudotas lėšas.</li>
+              <li>Bendrijos veiklą kontroliuoja Revizijos komisija, kurios įgaliojimų terminą nustato visuotinis susirinkimas.</li>
+              <li>Finansinę veiklą (kiek tai susiję su mokesčiais) kontroliuoja Valstybinė mokesčių inspekcija.</li>
+              <li>Lėšų apskaita ir raštvedyba tvarkoma įstatymų nustatyta tvarka.</li>
+              <li>Ginčai tarp bendrijos ir jos narių sprendžiami teismine tvarka.</li>
+              <li>Siekiant užkirsti kelią nusikalstamumui, bendrija glaudžiai bendradarbiauja su vietos policija.</li>
+              <li>Statyti paslaugas teikiančių įmonių pastatus bendrijos teritorijoje leidžiama tik gavus narių susirinkimo sutikimą. Verslo pastatus statyti draudžiama.</li>
+            </ol>
+          </div>
+        </details>
+
+        <p class="rules-footer">Įstatymų leidėjui pakeitus ar papildžius LR Sodininkų bendrijų įstatymo straipsnius ar kitus teisės aktus, dėl kurių atsirastų neatitikimų tarp šių taisyklių ir įstatymo, viršenybė teikiama Sodininkų bendrijų įstatymui ar kitiems LR teisės aktams.</p>
+        <p class="rules-signature">SB „Šernai“ valdybos pirmininkė Daina Baronienė · patvirtinta 2013-04-27</p>
+        <a class="doc-link-inline" href="documents/vidaus-tvarkos-taisykles.pdf">Žiūrėti pasirašytą originalą (PDF)</a>
+      </div>
+    </div>
+  </section>
+
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <strong>Sodininkų bendrija „Šernai“</strong><br>
+      Aušros al. 2, Žiaukų k., Priekulės sen., Klaipėdos r. sav.
+    </div>
+    <div>
+      <a href="index.html">Naujienos</a><br>
+      <a href="susirinkimai.html">Susirinkimų medžiaga</a><br>
+      <a href="kontaktai.html">Kontaktai</a>
+    </div>
+  </div>
+</footer>
+
+<div class="lightbox-overlay" id="lightbox">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Uždaryti">&times;</button>
+  <img id="lightboxImg" src="" alt="">
+</div>
+
+<script src="site.js"></script>
+
+</body>
+</html>
